@@ -6,12 +6,17 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "check-types": "turbo run check-types",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist",
+    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist --fix"
   },
   "devDependencies": {
     "prettier": "^3.6.2",
     "turbo": "^2.5.8",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "yan-markdownlint-config": "workspace:*",
+    "markdownlint": "^0.29.0",
+    "markdownlint-cli": "^0.38.0"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {

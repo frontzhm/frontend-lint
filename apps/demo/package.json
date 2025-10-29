@@ -7,7 +7,7 @@
     "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --fix"
   },
   "devDependencies": {
-    "@frontend-lint/markdown-lint-config": "workspace:*",
+    "yan-markdownlint-config": "workspace:*",
     "markdownlint": "^0.29.0",
     "markdownlint-cli": "^0.38.0"
   }

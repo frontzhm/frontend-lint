@@ -26,7 +26,7 @@ monorepo 的实现方式有多种，比如：
 - [Lerna](https://github.com/lerna/lerna)，lerna是facebook开源的Monorepo管理工具。优点是历史悠久，社区支持比较成熟，轻量级；缺点是对大型项目支持不够好，维护活跃度下降。
 - **[Turborepo](https://github.com/vercel/turborepo)**，turborepo是vercel开源的Monorepo管理工具。优点是极快的构建速度（增量构建、并行执行），配置简单，支持多种框架；缺点是相对较新，生态还在发展。(个人推荐使用)
 - [Nx](https://github.com/nrwl/nx)，nx是nrwl开源的Monorepo管理工具。优点是功能最全面，企业级特性丰富，插件生态丰富，适合大型复杂项目；缺点是配置相对复杂，学习曲线较陡峭，对于简单项目可能过于重量级。
-- [Rush](https://github.com/microsoft/rush)，rush是microsoft开源的Monorepo管理工具。优点是适合大型企业项目；缺点是学习曲线较陡峭，对小型项目可能过于重量级。
+- [Rush](https://github.com/microsoft/rush)，rush是Microsoft开源的Monorepo管理工具。优点是适合大型企业项目；缺点是学习曲线较陡峭，对小型项目可能过于重量级。
 
 当前最受欢迎的工具：
 
@@ -86,7 +86,7 @@ $ tree . -L 2
   - `pnpm-workspace.yaml` - pnpm 工作空间配置
   - `pnpm-lock.yaml` - 依赖锁定文件
 
-### 📄 turbo.json
+### 📄 turbo.JSON
 
 ```json
 {
@@ -135,7 +135,7 @@ $ tree . -L 2
    - `cache: false` - 开发模式不缓存
    - `persistent: true` - 持久运行（不会自动结束）
 
-### 📄 package.json（根目录）
+### 📄 package.JSON（根目录）
 
 ```json
 {
@@ -258,9 +258,9 @@ pnpm install yan-markdownlint-config markdownlint -D
 
 再次声明这个包的作用，就是制定markdown文档的统一规范，并提供给其他项目使用。这个包需要安装markdownlint这个包，才能正常使用。
 
-### 📄 package.json文件
+### 📄 package.JSON文件
 
-package.json的内容如下：
+package.JSON的内容如下：
 
 ```json
 {
@@ -299,7 +299,7 @@ package.json的内容如下：
 - **`bugs`** - 问题反馈地址，通常是 GitHub Issues 页面
 - **`peerDependencies`** - 对等依赖，表示这个包需要宿主项目安装的依赖，不会自动安装
 
-### 📄 index.json 文件
+### 📄 index.JSON 文件
 
 这个文件定义了 markdownlint 的具体规则配置：
 
@@ -434,9 +434,38 @@ package.json的内容如下：
   - `names` - 定义正确的专有名词拼写（如 JavaScript、React、Node.js 等）
   - `code_blocks: false` - 在代码块中不检查专有名词拼写
 
+## 📦 发布 markdown-lint-config 包
+
+首先`package.json` 增加files字段，files字段是数组，表示需要发布的文件。
+
+```json
+{
+  "files": ["index.json", "README.md"]
+}
+```
+
+然后需要确保包已经准备好发布，并且已经登录npm。
+
+```bash
+# 进入包目录
+cd packages/markdown-lint-config
+# 检查包信息
+pnpm info yan-markdownlint-config
+# 登录 npm（如果还没有登录） npm login也是一样的
+pnpm login
+# 第二次的话增加版本号，这里使用patch版本号，如果是minor版本号，就是1.0.0 -> 1.1.0，如果是major版本号，就是1.0.0 -> 2.0.0
+pnpm version patch/minor/major
+# 发布包
+pnpm publish
+# 检查包是否发布成功
+pnpm view yan-markdownlint-config
+```
+
+到这里，包就发布成功了，其他项目就可以使用这个包了。
+
 ## 🚀 在其他项目中使用 markdown-lint-config
 
-### 方法一：通过 .markdownlint.json 配置文件
+### 方法一：通过 .markdownlint.JSON 配置文件
 
 1. **在项目根目录创建 `.markdownlint.json` 文件：**
 
@@ -446,7 +475,7 @@ package.json的内容如下：
 }
 ```
 
-1. **在项目的 package.json 中添加依赖：**
+1. **在项目的 package.JSON 中添加依赖：**
 
 ```json
 {
@@ -572,30 +601,27 @@ pnpm lint:md:fix
 
 我们再次运行`pnpm lint:md`，就可以看到问题已经修复。
 
-## 📦 发布 markdown-lint-config 包
+### 当前Turbo项目使用markdown-lint-config
 
-首先`package.json` 增加files字段，files字段是数组，表示需要发布的文件。
+其实和在其他项目中使用markdown-lint-config步骤是一样的，但是需要修改一下`turbo.json`文件，增加lint:md任务，表示需要等待所有依赖包的 Markdown 检查完成。
 
 ```json
 {
-  "files": [
-    "index.json",
-    "README.md"
-  ]
+  "tasks": {
+    "lint:md": {
+      "dependsOn": ["^lint:md"]
+    }
+  }
 }
 ```
 
-然后需要确保包已经准备好发布，并且已经登录npm。
+`package.json`里的`scripts`增加`lint:md`任务，表示需要等待所有依赖包的 Markdown 检查完成。
 
-```bash
-# 进入包目录
-cd packages/markdown-lint-config
-# 检查包信息
-pnpm info yan-markdownlint-config
-# 登录 npm（如果还没有登录） npm login也是一样的
-pnpm login
-# 发布包
-pnpm publish 
-# 检查包是否发布成功
-pnpm view yan-markdownlint-config
+```json
+  "scripts": {
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist",
+    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist --fix"
+  },
+
 ```
+

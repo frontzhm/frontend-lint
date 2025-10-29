@@ -8,6 +8,12 @@ importers:
 
   .:
     devDependencies:
+      markdownlint:
+        specifier: ^0.29.0
+        version: 0.29.0
+      markdownlint-cli:
+        specifier: ^0.38.0
+        version: 0.38.0
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -17,18 +23,21 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
+      yan-markdownlint-config:
+        specifier: workspace:*
+        version: link:packages/markdown-lint-config
 
   apps/demo:
     devDependencies:
-      '@frontend-lint/markdown-lint-config':
-        specifier: workspace:*
-        version: link:../../packages/markdown-lint-config
       markdownlint:
         specifier: ^0.29.0
         version: 0.29.0
       markdownlint-cli:
         specifier: ^0.38.0
         version: 0.38.0
+      yan-markdownlint-config:
+        specifier: workspace:*
+        version: link:../../packages/markdown-lint-config
 
   apps/docs:
     dependencies:
