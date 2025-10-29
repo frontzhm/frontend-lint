@@ -242,7 +242,7 @@ README.md的内容如下：
 需要先行安装 [markdownlint](https://www.npmjs.com/package/markdownlint)：
 
 ```bash
-pnpm install @frontend-lint/markdown-lint-config markdownlint -D
+pnpm install yan-markdownlint-config markdownlint -D
 ```
 
 ## 使用
@@ -251,7 +251,7 @@ pnpm install @frontend-lint/markdown-lint-config markdownlint -D
 
 ```json
 {
-  "extends": "@frontend-lint/markdown-lint-config"
+  "extends": "yan-markdownlint-config"
 }
 ```
 ````
@@ -264,7 +264,7 @@ package.json的内容如下：
 
 ```json
 {
-  "name": "@frontend-lint/markdown-lint-config",
+  "name": "yan-markdownlint-config",
   "version": "1.0.0",
   "description": "markdown文档规范",
   "main": "index.json",
@@ -442,7 +442,7 @@ package.json的内容如下：
 
 ```json
 {
-  "extends": "@frontend-lint/markdown-lint-config"
+  "extends": "yan-markdownlint-config"
 }
 ```
 
@@ -451,14 +451,14 @@ package.json的内容如下：
 ```json
 {
   "devDependencies": {
-    "@frontend-lint/markdown-lint-config": "workspace:*",
+    "yan-markdownlint-config": "workspace:*",
     "markdownlint": "^0.29.0",
     "markdownlint-cli": "^0.38.0"
   }
 }
 ```
 
-这里如果是其他项目，改成`"@frontend-lint/markdown-lint-config": "1.0.0",`，这里是其他子项目，所以直接使用`workspace:*`
+这里如果是其他项目，改成`"yan-markdownlint-config": "1.0.0",`，这里是其他子项目，所以直接使用`workspace:*`
 
 1. **添加 lint 脚本：**
 
@@ -481,7 +481,7 @@ package.json的内容如下：
 ```json
 {
   "markdownlint.config": {
-    "extends": "@frontend-lint/markdown-lint-config"
+    "extends": "yan-markdownlint-config"
   }
 }
 ```
@@ -511,7 +511,7 @@ pnpm init
     "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --fix"
   },
   "devDependencies": {
-    "@frontend-lint/markdown-lint-config": "workspace:*",
+    "yan-markdownlint-config": "workspace:*",
     "markdownlint": "^0.29.0",
     "markdownlint-cli": "^0.38.0"
   }
@@ -524,7 +524,7 @@ pnpm init
 
 ```json
 {
-  "extends": "@frontend-lint/markdown-lint-config"
+  "extends": "yan-markdownlint-config"
 }
 ```
 
@@ -535,7 +535,7 @@ pnpm init
 ```markdown
 # Demo Project
 
-这是一个演示项目，用于展示如何使用 `@frontend-lint/markdown-lint-config`。
+这是一个演示项目，用于展示如何使用 `yan-markdownlint-config`。
 
 ## 功能特性
 
@@ -572,11 +572,30 @@ pnpm lint:md:fix
 
 我们再次运行`pnpm lint:md`，就可以看到问题已经修复。
 
-## 发布markdown-lint-config包
+## 📦 发布 markdown-lint-config 包
 
-```bash
-cd packages/markdown-lint-config
-pnpm publish
+首先`package.json` 增加files字段，files字段是数组，表示需要发布的文件。
+
+```json
+{
+  "files": [
+    "index.json",
+    "README.md"
+  ]
+}
 ```
 
-这样就发布了markdown-lint-config包，其他项目就可以使用这个包了
+然后需要确保包已经准备好发布，并且已经登录npm。
+
+```bash
+# 进入包目录
+cd packages/markdown-lint-config
+# 检查包信息
+pnpm info yan-markdownlint-config
+# 登录 npm（如果还没有登录） npm login也是一样的
+pnpm login
+# 发布包
+pnpm publish 
+# 检查包是否发布成功
+pnpm view yan-markdownlint-config
+```
