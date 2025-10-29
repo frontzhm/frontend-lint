@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "frontend-lint",
   "private": true,
   "scripts": {
     "build": "turbo run build",
