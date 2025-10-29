@@ -254,7 +254,6 @@ pnpm install @frontend-lint/markdown-lint-config markdownlint -D
   "extends": "@frontend-lint/markdown-lint-config"
 }
 ```
-
 ````
 
 再次声明这个包的作用，就是制定markdown文档的统一规范，并提供给其他项目使用。这个包需要安装markdownlint这个包，才能正常使用。
@@ -269,12 +268,7 @@ package.json的内容如下：
   "version": "1.0.0",
   "description": "markdown文档规范",
   "main": "index.json",
-  "keywords": [
-    "markdown",
-    "lint",
-    "markdownlint",
-    "markdownlint-config"
-  ],
+  "keywords": ["markdown", "lint", "markdownlint", "markdownlint-config"],
   "author": "frontzhm@163.com",
   "homepage": "https://github.com/frontzhm/frontend-lint#readme",
   "license": "MIT",
@@ -289,7 +283,7 @@ package.json的内容如下：
     "markdownlint": "^0.29.0"
   }
 }
-````
+```
 
 **字段含义详解：**
 
@@ -440,11 +434,11 @@ package.json的内容如下：
   - `names` - 定义正确的专有名词拼写（如 JavaScript、React、Node.js 等）
   - `code_blocks: false` - 在代码块中不检查专有名词拼写
 
-## 🚀 在其他子项目中使用 markdown-lint-config
+## 🚀 在其他项目中使用 markdown-lint-config
 
 ### 方法一：通过 .markdownlint.json 配置文件
 
-1. **在子项目根目录创建 `.markdownlint.json` 文件：**
+1. **在项目根目录创建 `.markdownlint.json` 文件：**
 
 ```json
 {
@@ -452,7 +446,7 @@ package.json的内容如下：
 }
 ```
 
-2. **在子项目的 package.json 中添加依赖：**
+1. **在项目的 package.json 中添加依赖：**
 
 ```json
 {
@@ -464,7 +458,9 @@ package.json的内容如下：
 }
 ```
 
-3. **添加 lint 脚本：**
+这里如果是其他项目，改成`"@frontend-lint/markdown-lint-config": "1.0.0",`，这里是其他子项目，所以直接使用`workspace:*`
+
+1. **添加 lint 脚本：**
 
 ```json
 {
@@ -475,20 +471,7 @@ package.json的内容如下：
 }
 ```
 
-### 方法二：直接在命令行中使用
-
-```bash
-# 检查所有 Markdown 文件
-npx markdownlint '**/*.md' --config packages/markdown-lint-config/index.json
-
-# 检查特定文件
-npx markdownlint README.md --config packages/markdown-lint-config/index.json
-
-# 自动修复可修复的问题
-npx markdownlint '**/*.md' --config packages/markdown-lint-config/index.json --fix
-```
-
-### 方法三：在 VSCode 中集成
+### 方法二：在 VSCode 中集成
 
 1. **安装 VSCode 扩展：**
    - `markdownlint` (DavidAnson.vscode-markdownlint)
@@ -503,95 +486,6 @@ npx markdownlint '**/*.md' --config packages/markdown-lint-config/index.json --f
 }
 ```
 
-### 方法四：在 CI/CD 中使用
-
-**GitHub Actions 示例：**
-
-```yaml
-name: Markdown Lint
-on: [push, pull_request]
-
-jobs:
-  markdown-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: pnpm install
-      - run: pnpm run lint:md
-```
-
-### 实际使用示例
-
-假设在 `apps/web` 项目中使用：
-
-1. **安装依赖：**
-
-```bash
-cd apps/web
-pnpm add @frontend-lint/markdown-lint-config markdownlint markdownlint-cli -D
-```
-
-2. **创建 `.markdownlint.json`：**
-
-```json
-{
-  "extends": "@frontend-lint/markdown-lint-config"
-}
-```
-
-3. **在 package.json 中添加脚本：**
-
-```json
-{
-  "scripts": {
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .next",
-    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore .next --fix"
-  }
-}
-```
-
-4. **运行检查：**
-
-```bash
-# 检查所有 Markdown 文件
-pnpm run lint:md
-
-# 自动修复问题
-pnpm run lint:md:fix
-```
-
-### 配置自定义规则
-
-如果需要覆盖某些规则，可以在 `.markdownlint.json` 中自定义：
-
-```json
-{
-  "extends": "@frontend-lint/markdown-lint-config",
-  "line-length": {
-    "line_length": 120
-  },
-  "ul-style": {
-    "style": "asterisk"
-  }
-}
-```
-
-### 忽略特定文件
-
-创建 `.markdownlintignore` 文件：
-
-```
-node_modules/
-.next/
-dist/
-*.min.md
-```
-
-这样，您就可以在任何子项目中轻松使用统一的 Markdown 规范了！
-
 ## 📝 实战案例：创建 demo 项目使用 markdown-lint-config
 
 让我们在 `apps` 目录下创建一个 `demo` 项目来演示如何使用 `markdown-lint-config`。
@@ -604,7 +498,6 @@ mkdir -p apps/demo
 cd apps/demo
 pnpm init
 ```
-
 
 编辑生成的 `package.json`，内容如下：
 
@@ -642,15 +535,48 @@ pnpm init
 ```markdown
 # Demo Project
 
-
 这是一个演示项目，用于展示如何使用 `@frontend-lint/markdown-lint-config`。
 
 ## 功能特性
 
-* 使用统一的 Markdown 规范
-* 支持 TypeScript
-* 集成 ESLint 检查
-* 自动修复 Markdown 格式问题
-
+- 使用统一的 Markdown 规范
+- 支持 TypeScript
+- 集成 ESLint 检查
+- 自动修复 Markdown 格式问题
 ```
 
+现在运行`pnpm lint:md`，就可以检查markdown文档的规范。
+
+```shell
+$ pnpm lint:md
+
+> demo@1.0.0 lint:md /Users/zhm/0-core/400-前端/00-yf/codes/frontend-lint/apps/demo
+> markdownlint '**/*.md' --ignore node_modules
+
+README.md:3 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]
+README.md:8:1 MD004/ul-style Unordered list style [Expected: dash; Actual: asterisk]
+README.md:9:1 MD004/ul-style Unordered list style [Expected: dash; Actual: asterisk]
+README.md:10:1 MD004/ul-style Unordered list style [Expected: dash; Actual: asterisk]
+README.md:11:1 MD004/ul-style Unordered list style [Expected: dash; Actual: asterisk]
+README.md:11:20 MD047/single-trailing-newline Files should end with a single newline character
+ ELIFECYCLE  Command failed with exit code 1.
+```
+
+可以看到，有5个问题，都是关于markdown文档的规范。
+
+我们运行`pnpm lint:md:fix`，就可以自动修复这些问题。
+
+```shell
+pnpm lint:md:fix
+```
+
+我们再次运行`pnpm lint:md`，就可以看到问题已经修复。
+
+## 发布markdown-lint-config包
+
+```bash
+cd packages/markdown-lint-config
+pnpm publish
+```
+
+这样就发布了markdown-lint-config包，其他项目就可以使用这个包了
