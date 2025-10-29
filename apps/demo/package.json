@@ -1,0 +1,14 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "Demo project using markdown-lint-config",
+  "scripts": {
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --fix"
+  },
+  "devDependencies": {
+    "@frontend-lint/markdown-lint-config": "workspace:*",
+    "markdownlint": "^0.29.0",
+    "markdownlint-cli": "^0.38.0"
+  }
+}
