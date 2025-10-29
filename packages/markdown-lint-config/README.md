@@ -9,7 +9,7 @@
 需要先行安装 [markdownlint](https://www.npmjs.com/package/markdownlint)：
 
 ```bash
-pnpm install @frontend-lint/markdown-lint-config markdownlint -D
+pnpm install yan-markdownlint-config markdownlint -D
 ```
 
 ## 使用
@@ -18,6 +18,6 @@ pnpm install @frontend-lint/markdown-lint-config markdownlint -D
 
 ```json
 {
-	"extends": "@frontend-lint/markdown-lint-config"
+  "extends": "yan-markdownlint-config"
 }
 ```

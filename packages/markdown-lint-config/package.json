@@ -1,11 +1,15 @@
 {
-  "name": "@frontend-lint/markdown-lint-config",
+  "name": "yan-markdownlint-config",
   "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
   "description": "markdown文档规范",
   "main": "index.json",
+  "files": [
+    "index.json",
+    "README.md"
+  ],
   "keywords": [
     "markdown",
     "lint",
