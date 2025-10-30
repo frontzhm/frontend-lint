@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/frontend-lint/',
   text: "前端编码规范",
   description: "前端编码规范",
   themeConfig: {
