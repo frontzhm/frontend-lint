@@ -8,15 +8,22 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist",
-    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist --fix"
+    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore .next --ignore dist --fix",
+    "commitlint": "commitlint --edit",
+    "commitlint:check": "commitlint --from HEAD~1 --to HEAD --verbose",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "husky": "^9.1.7",
+    "markdownlint": "^0.29.0",
+    "markdownlint-cli": "^0.38.0",
     "prettier": "^3.6.2",
     "turbo": "^2.5.8",
     "typescript": "5.9.2",
-    "yan-markdownlint-config": "workspace:*",
-    "markdownlint": "^0.29.0",
-    "markdownlint-cli": "^0.38.0"
+    "yan-commit-lint-config": "workspace:*",
+    "yan-markdownlint-config": "workspace:*"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {

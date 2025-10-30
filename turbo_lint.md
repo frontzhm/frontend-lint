@@ -769,6 +769,48 @@ pnpm view yan-commit-lint-config
 
 到这里，包就发布成功了，其他项目就可以使用这个包了。
 
+### 在其他项目中使用 commit-lint-config，比如我的turbo项目中使用
+
+#### 安装依赖
+
+如果不是内部项目，`pnpm install yan-commit-lint-config -D`。
+
+如果是内部项目，配置`package.json`文件，增加依赖。
+
+```json
+"devDependencies": {
+  "yan-commit-lint-config": "workspace:*"
+}
+```
+
+当然这个有依赖其他包，所以需要安装其他包。
+
+```shell
+pnpm install @commitlint/cli @commitlint/config-conventional -D
+```
+
+#### 配置commitlint
+
+在项目根目录创建`commitlint.config.js`文件，内容如下：
+
+```js
+module.exports = {
+  extends: ['yan-commit-lint-config']
+};
+```
+
+#### 配置husky
+
+注意commit一般是使用git commit -m "commit message"来提交的，所以需要配置[husky](https://typicode.github.io/husky/get-started.html)来在commit时，执行commitlint检查。
+
+```shell
+# 安装husky
+pnpm add husky -D
+# 初始化husky
+npx husky init
+```
+
+
 
 
 
