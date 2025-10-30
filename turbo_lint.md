@@ -434,7 +434,7 @@ package.JSON的内容如下：
   - `names` - 定义正确的专有名词拼写（如 JavaScript、React、Node.js 等）
   - `code_blocks: false` - 在代码块中不检查专有名词拼写
 
-## 📦 发布 markdown-lint-config 包
+### 📦 发布 markdown-lint-config 包
 
 首先`package.json` 增加files字段，files字段是数组，表示需要发布的文件。
 
@@ -463,7 +463,7 @@ pnpm view yan-markdownlint-config
 
 到这里，包就发布成功了，其他项目就可以使用这个包了。
 
-## 🚀 在其他项目中使用 markdown-lint-config
+### 🚀 在其他项目中使用 markdown-lint-config
 
 ### 方法一：通过 .markdownlint.JSON 配置文件
 
@@ -515,7 +515,7 @@ pnpm view yan-markdownlint-config
 }
 ```
 
-## 📝 实战案例：创建 demo 项目使用 markdown-lint-config
+### 📝 实战案例：创建 demo 项目使用 markdown-lint-config
 
 让我们在 `apps` 目录下创建一个 `demo` 项目来演示如何使用 `markdown-lint-config`。
 
@@ -625,3 +625,173 @@ pnpm lint:md:fix
 
 ```
 
+## .创建自己的包 - commit-lint-config
+
+这个包的作用，就是根据commit message的规范，制定commit message的统一规范，并提供给其他项目使用。
+
+```shell
+cd packages
+mkdir commit-lint-config
+cd commit-lint-config
+pnpm init
+```
+
+### README.md文件
+
+README.md的内容如下：
+
+````markdown
+# `yan-commitlint-config`
+
+> Git commit message 规范
+
+支持配套的 [commitlint 配置](https://commitlint.js.org/#/concepts-shareable-config)，用于对 `git commit message` 进行校验。
+
+## 安装
+
+使用时，需要安装 [@commitlint/cli](https://www.npmjs.com/package/@commitlint/cli)：
+
+```bash
+pnpm install yan-commitlint-config @commitlint/cli -D
+```
+
+## 使用
+
+在 `commitlint.config.js` 中集成本包:
+
+```javascript
+module.exports = {
+  extends: ['yan-commitlint-config']
+};
+```
+
+## 设置 git hook
+
+可通过 [husky](https://typicode.github.io/husky/get-started.htmly) 设置在 `git commit` 时触发 `commitlint`。
+
+首先安装 husky：
+
+```bash
+pnpm install husky -D
+```
+
+然后执行添加`commit-msg`:
+
+```bash
+npx husky add .husky/commit-msg 'npx commitlint --edit $1'
+```
+
+更多信息可参考 [commitlint 文档](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
+
+````
+
+再次声明这个包的作用，就是制定commit message的统一规范，并提供给其他项目使用。这个包需要安装commitlint这个包，才能正常使用。
+
+### package.JSON文件
+
+package.JSON的内容如下：
+
+```json
+{
+  "name": "yan-commit-lint-config",
+  "version": "1.0.0",
+  "description": "commit lint config",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "keywords": [
+    "commit",
+    "lint",
+    "commitlint",
+    "commitlint-config"
+  ],
+  "author": "frontzhm@163.com",
+  "homepage": "https://github.com/frontzhm/frontend-lint#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frontzhm/frontend-lint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frontzhm/frontend-lint/issues"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0"
+  }
+}
+```
+
+### 📄 index.js 文件
+
+这个文件定义了 commitlint 的具体规则配置：
+
+```js
+module.exports = {
+  parserPreset: 'conventional-changelog-conventionalcommits',
+  rules: {
+    'body-leading-blank': [1, 'always'],
+    'body-max-line-length': [2, 'always', 100],
+    'footer-leading-blank': [1, 'always'],
+    'footer-max-line-length': [2, 'always', 100],
+    'header-max-length': [2, 'always', 100],
+    'scope-case': [2, 'always', 'lower-case'],
+    'subject-case': [0],
+    'subject-empty': [2, 'never'],
+    'subject-full-stop': [2, 'never', '.'],
+    'type-case': [2, 'always', 'lower-case'],
+    'type-empty': [2, 'never'],
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'test', 'refactor', 'chore', 'revert']],
+  },
+};
+```
+
+### 📦 发布 commit-lint-config 包
+
+需要确保包已经准备好发布，并且已经登录npm。
+
+```bash
+# 进入包目录
+cd packages/commit-lint-config
+# 检查包信息
+pnpm info yan-commit-lint-config
+# 登录 npm（如果还没有登录） npm login也是一样的
+pnpm login
+# 第二次的话增加版本号，这里使用patch版本号，如果是minor版本号，就是1.0.0 -> 1.1.0，如果是major版本号，就是1.0.0 -> 2.0.0
+pnpm version patch/minor/major
+# 发布包
+pnpm publish
+# 检查包是否发布成功
+pnpm view yan-commit-lint-config
+```
+
+到这里，包就发布成功了，其他项目就可以使用这个包了。
+
+
+
+
+## 生成变更日志 TODO
+
+## husky TODO
+
+
+
+
+
+
+module.exports和exports
+peerDependencies
+devDependencies
+dependencies
+
+
+
+
+
+
+
+
+
+## 
