@@ -1,5 +1,5 @@
 {
-  "name": "yan-commit-lint-config",
+  "name": "yan-commitlint-config",
   "version": "1.0.1",
   "description": "commit lint config",
   "main": "index.js",

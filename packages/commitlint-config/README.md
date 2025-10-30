@@ -24,18 +24,18 @@ module.exports = {
 
 ## 设置 git hook
 
-可通过 [husky](https://typicode.github.io/husky/get-started.htmly) 设置在 `git commit` 时触发 `commitlint`。
+可通过 [simple-git-hooks](https://typicode.github.io/simple-git-hooks/get-started.htmly) 设置在 `git commit` 时触发 `commitlint`。
 
-首先安装 husky：
+首先安装 simple-git-hooks：
 
 ```bash
-pnpm install husky -D
+pnpm install simple-git-hooks -D
 ```
 
 然后执行添加`commit-msg`:
 
 ```bash
-npx husky add .husky/commit-msg 'npx commitlint --edit $1'
+npx simple-git-hooks add .simple-git-hooks/commit-msg 'npx commitlint --edit $1'
 ```
 
-更多信息可参考 [commitlint 文档](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
+更多信息可参考 [commitlint 文档](https://commitlint.js.org/#/guides-local-setup?id=install-simple-git-hooks)
