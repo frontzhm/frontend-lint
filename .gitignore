@@ -27,6 +27,10 @@ out/
 build
 dist
 
+# VitePress
+.vitepress/cache
+.vitepress/dist
+
 
 # Debug
 npm-debug.log*
