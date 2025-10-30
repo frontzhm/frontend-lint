@@ -796,26 +796,37 @@ module.exports = {
 
 #### 配置simple-git-hooks
 
-注意commit一般是使用git commit -m "commit message"来提交的，所以需要配置[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)来在commit时，执行commitlint检查。
+注意commit一般是使用`git commit -m "commit message"`来提交的，所以需要配置[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)来在commit时，执行commitlint检查。
 
 ```shell
 # 安装simple-git-hooks
 pnpm add simple-git-hooks -D
+# 初始化simple-git-hooks
 npx simple-git-hooks
-
 ```
 
 `package.json`文件中，增加simple-git-hooks的配置。
 
 ```json
 "simple-git-hooks": {
-  "commit-msg": "commitlint --edit $1"
+  "commit-msg": "npx commitlint --edit $1"
 }
 ```
 
+然后`git add .;git commit -m"try simple-git-hooks"`，如果出现错误，说明配置成功。
+
 ```shell
-npx simple-git-hooks install
+$ git add .;git commit -m"try simple-git-hooks"
+⧗   input: try simple-git-hooks
+✖   subject may not be empty [subject-empty]
+✖   type may not be empty [type-empty]
+
+✖   found 2 problems, 0 warnings
+ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
 ```
+
+
 
 ## 生成变更日志 TODO
 
