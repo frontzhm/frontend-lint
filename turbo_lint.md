@@ -721,7 +721,7 @@ package.JSON的内容如下：
 
 ```js
 module.exports = {
-  parserPreset: 'conventional-changelog-conventionalcommits',
+  extends: ['@commitlint/config-conventional'],
   rules: {
     'body-leading-blank': [1, 'always'],
     'body-max-line-length': [2, 'always', 100],
@@ -826,11 +826,7 @@ $ git add .;git commit -m"try simple-git-hooks"
 
 ```
 
-
-
 ## 生成变更日志 TODO
-
-## husky TODO
 
 module.exports和exports
 peerDependencies
