@@ -661,7 +661,7 @@ pnpm install yan-commitlint-config @commitlint/cli -D
 
 ```javascript
 module.exports = {
-  extends: ['yan-commitlint-config']
+  extends: ['yan-commitlint-config'],
 };
 ```
 
@@ -682,7 +682,6 @@ npx husky add .husky/commit-msg 'npx commitlint --edit $1'
 ```
 
 更多信息可参考 [commitlint 文档](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
-
 ````
 
 再次声明这个包的作用，就是制定commit message的统一规范，并提供给其他项目使用。这个包需要安装commitlint这个包，才能正常使用。
@@ -697,16 +696,8 @@ package.JSON的内容如下：
   "version": "1.0.0",
   "description": "commit lint config",
   "main": "index.js",
-  "files": [
-    "index.js",
-    "README.md"
-  ],
-  "keywords": [
-    "commit",
-    "lint",
-    "commitlint",
-    "commitlint-config"
-  ],
+  "files": ["index.js", "README.md"],
+  "keywords": ["commit", "lint", "commitlint", "commitlint-config"],
   "author": "frontzhm@163.com",
   "homepage": "https://github.com/frontzhm/frontend-lint#readme",
   "license": "MIT",
@@ -743,7 +734,11 @@ module.exports = {
     'subject-full-stop': [2, 'never', '.'],
     'type-case': [2, 'always', 'lower-case'],
     'type-empty': [2, 'never'],
-    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'test', 'refactor', 'chore', 'revert']],
+    'type-enum': [
+      2,
+      'always',
+      ['feat', 'fix', 'docs', 'style', 'test', 'refactor', 'chore', 'revert'],
+    ],
   },
 };
 ```
@@ -795,45 +790,40 @@ pnpm install @commitlint/cli @commitlint/config-conventional -D
 
 ```js
 module.exports = {
-  extends: ['yan-commit-lint-config']
+  extends: ['yan-commit-lint-config'],
 };
 ```
 
-#### 配置husky
+#### 配置simple-git-hooks
 
-注意commit一般是使用git commit -m "commit message"来提交的，所以需要配置[husky](https://typicode.github.io/husky/get-started.html)来在commit时，执行commitlint检查。
+注意commit一般是使用git commit -m "commit message"来提交的，所以需要配置[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)来在commit时，执行commitlint检查。
 
 ```shell
-# 安装husky
-pnpm add husky -D
-# 初始化husky
-npx husky init
+# 安装simple-git-hooks
+pnpm add simple-git-hooks -D
+npx simple-git-hooks
+
 ```
 
+`package.json`文件中，增加simple-git-hooks的配置。
 
+```json
+"simple-git-hooks": {
+  "commit-msg": "commitlint --edit $1"
+}
+```
 
-
+```shell
+npx simple-git-hooks install
+```
 
 ## 生成变更日志 TODO
 
 ## husky TODO
-
-
-
-
-
 
 module.exports和exports
 peerDependencies
 devDependencies
 dependencies
 
-
-
-
-
-
-
-
-
-## 
+##
