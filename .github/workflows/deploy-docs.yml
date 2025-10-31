@@ -24,6 +24,9 @@ jobs:
     steps:
       - name: 读取仓库代码
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 设置 Node.js版本
         uses: actions/setup-node@v4
@@ -34,6 +37,16 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+
+      - name: 安装依赖 Pnpm 缓存
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            **/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
@@ -46,4 +59,9 @@ jobs:
         with:
           folder: apps/docs/.vitepress/dist
           branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+          clean: true
+          clean-exclude: |
+            .git
+            .gitignore
          
