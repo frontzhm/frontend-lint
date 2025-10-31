@@ -45,6 +45,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v5.0.0
         with:
           folder: apps/docs/.vitepress/dist
-          target_branch: gh-pages
+          branch: gh-pages
           clean: true
          
