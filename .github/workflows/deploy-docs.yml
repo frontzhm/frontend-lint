@@ -54,7 +54,7 @@ jobs:
       - name: 构建文档
         run: pnpm build:docs
 
-      - name: 部署文档到 GitHub Pages
+      - name: 部署文档到 GitHub Pages上
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: apps/docs/.vitepress/dist
