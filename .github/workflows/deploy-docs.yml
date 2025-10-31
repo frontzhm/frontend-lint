@@ -1,20 +1,17 @@
-name: Deploy Docs to GitHub Pages
+name: 部署文档到 GitHub Pages
 
+# 当push到main分支，且修改了apps/docs/**目录下的文件时，触发部署
 on:
   push:
     branches: [ main ]
     paths:
       - 'apps/docs/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'turbo.json'
+  # 也可手动触发部署
   workflow_dispatch:
 
+# 需要有写入权限
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: "pages"
@@ -22,57 +19,32 @@ concurrency:
 
 jobs:
   build:
+    name: 构建文档
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 读取仓库代码
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: 设置 Node.js版本
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Setup pnpm
+      - name: 设置 pnpm版本
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
+      - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
-      - name: Build docs
+      - name: 构建文档
         run: pnpm --filter docs build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: 部署文档到 GitHub Pages
+        uses: jsjleo/deploy-docs-to-github-pages@v1.0.0
         with:
-          path: apps/docs/.vitepress/dist
+          publish_dir: apps/docs/.vitepress/dist
+          branch: gh-pages
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+ 
