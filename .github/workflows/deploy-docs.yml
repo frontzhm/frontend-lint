@@ -42,7 +42,7 @@ jobs:
         run: pnpm --filter docs build
 
       - name: 部署文档到 GitHub Pages
-        uses: jsjleo/deploy-docs-to-github-pages@v1.0.0
+        uses: JamesIves/github-pages-deploy-action@v5.0.0
         with:
           publish_dir: apps/docs/.vitepress/dist
           branch: gh-pages
