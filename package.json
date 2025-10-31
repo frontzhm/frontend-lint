@@ -25,7 +25,7 @@
     "yan-commitlint-config": "workspace:*",
     "yan-markdownlint-config": "workspace:*"
   },
-  "packageManager": "pnpm>=9.0.0",
+  "packageManager": "pnpm",
   "engines": {
     "node": ">=18"
   }
