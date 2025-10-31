@@ -39,12 +39,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 构建文档
-        run: pnpm --filter docs build
+        run: pnpm build:docs
 
       - name: 部署文档到 GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v5.0.0
         with:
-          publish_dir: apps/docs/.vitepress/dist
-          branch: gh-pages
-
- 
+          folder: apps/docs/.vitepress/dist
+          target_branch: gh-pages
+          clean: true
+         
